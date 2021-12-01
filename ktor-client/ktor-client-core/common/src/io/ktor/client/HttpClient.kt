@@ -10,7 +10,6 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.client.utils.*
-import io.ktor.client.utils.checkCoroutinesVersion
 import io.ktor.events.*
 import io.ktor.util.*
 import io.ktor.utils.io.*
@@ -128,8 +127,6 @@ public class HttpClient(
     internal val config = HttpClientConfig<HttpClientEngineConfig>()
 
     init {
-        checkCoroutinesVersion()
-
         if (manageEngine) {
             clientJob.invokeOnCompletion {
                 if (it != null) {
@@ -179,8 +176,6 @@ public class HttpClient(
                 throw cause
             }
         }
-
-        makeShared()
     }
 
     /**

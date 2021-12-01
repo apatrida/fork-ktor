@@ -4,15 +4,10 @@
 
 package io.ktor.util.collections.internal
 
-import io.ktor.utils.io.*
 import kotlinx.atomicfu.*
 
 internal class SharedList<T>(override val size: Int) : List<T?> {
     private val data: AtomicArray<T?> = atomicArrayOfNulls<T>(size)
-
-    init {
-        makeShared()
-    }
 
     operator fun set(index: Int, value: T?) {
         data[index].value = value
@@ -52,10 +47,6 @@ internal class SharedList<T>(override val size: Int) : List<T?> {
 
     override fun listIterator(index: Int): ListIterator<T?> = object : ListIterator<T?> {
         private val currentIndex = atomic(index)
-
-        init {
-            makeShared()
-        }
 
         override fun hasNext(): Boolean = currentIndex.value < size
 

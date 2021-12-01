@@ -35,7 +35,7 @@ internal class CurlProcessor(
         val deferred = CompletableDeferred<CurlSuccess>()
         responseConsumers[request] = deferred
 
-        val easyHandle = worker.execute(TransferMode.SAFE, { request.apply { makeShared() } }, ::curlSchedule).result
+        val easyHandle = worker.execute(TransferMode.SAFE, { request }, ::curlSchedule).result
 
         val requestCleaner = callContext[Job]!!.invokeOnCompletion { cause ->
             if (cause == null) return@invokeOnCompletion
@@ -79,7 +79,7 @@ internal class CurlProcessor(
     }
 
     private fun cancelRequest(easyHandle: EasyHandle, cause: Throwable) {
-        worker.execute(TransferMode.SAFE, { (easyHandle to cause).apply { makeShared() } }) {
+        worker.execute(TransferMode.SAFE, { (easyHandle to cause) }) {
             curlApi.cancelRequest(it.first, it.second)
         }.consume { }
     }
@@ -89,4 +89,4 @@ internal fun curlSchedule(request: CurlRequestData): EasyHandle {
     return curlApi.scheduleRequest(request)
 }
 
-internal fun pollCompleted(): List<CurlResponseData> = curlApi.pollCompleted(100).apply { makeShared() }
+internal fun pollCompleted(): List<CurlResponseData> = curlApi.pollCompleted(100)

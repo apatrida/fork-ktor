@@ -24,10 +24,6 @@ import kotlin.reflect.*
 public actual inline fun <T> shared(value: T): ReadWriteProperty<Any, T> = object : ReadWriteProperty<Any, T> {
     private var reference = atomic(value)
 
-    init {
-        makeShared()
-    }
-
     override fun getValue(thisRef: Any, property: KProperty<*>): T {
         return reference.value
     }
@@ -46,11 +42,5 @@ public actual inline fun <T> shared(value: T): ReadWriteProperty<Any, T> = objec
 public actual fun <T : Any> threadLocal(value: T): ReadOnlyProperty<Any, T?> {
     val threadLocal = ThreadLocalValue(value)
 
-    return object : ReadOnlyProperty<Any, T?> {
-        init {
-            makeShared()
-        }
-
-        override fun getValue(thisRef: Any, property: KProperty<*>): T? = threadLocal.value
-    }
+    return ReadOnlyProperty { _, _ -> threadLocal.value }
 }

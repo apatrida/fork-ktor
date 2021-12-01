@@ -8,10 +8,6 @@ import io.ktor.utils.io.*
 import kotlin.native.ThreadLocal
 
 internal class ThreadId {
-    init {
-        makeShared()
-    }
-
     companion object {
         val current get() = threadLocal
     }

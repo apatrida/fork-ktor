@@ -14,16 +14,11 @@ import kotlin.collections.set
 /**
  * Mutable configuration used by [HttpClient].
  */
-@Suppress("DEPRECATION")
 @HttpClientDsl
 public class HttpClientConfig<T : HttpClientEngineConfig> {
-    @OptIn(InternalAPI::class)
-    private val plugins: MutableMap<AttributeKey<*>, (HttpClient) -> Unit> = sharedMap()
-    @OptIn(InternalAPI::class)
-    private val pluginConfigurations: MutableMap<AttributeKey<*>, Any.() -> Unit> = sharedMap()
-
-    @OptIn(InternalAPI::class)
-    private val customInterceptors: MutableMap<String, (HttpClient) -> Unit> = sharedMap()
+    private val plugins: MutableMap<AttributeKey<*>, (HttpClient) -> Unit> = mutableMapOf()
+    private val pluginConfigurations: MutableMap<AttributeKey<*>, Any.() -> Unit> = mutableMapOf()
+    private val customInterceptors: MutableMap<String, (HttpClient) -> Unit> = mutableMapOf()
 
     internal var engineConfig: T.() -> Unit by shared {}
 

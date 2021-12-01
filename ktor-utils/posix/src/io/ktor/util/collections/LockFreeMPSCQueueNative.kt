@@ -72,10 +72,6 @@ private class LockFreeMPSCQueueCore<E : Any>(private val capacity: Int) {
     private val _state = AtomicLong(0L)
     private val array = Array<AtomicReference<Any?>>(capacity) { AtomicReference(null) }
 
-    init {
-        makeShared()
-    }
-
     private fun setArrayValueHelper(index: Int, value: Any?) {
         array[index].value = value
     }

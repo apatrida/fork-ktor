@@ -54,10 +54,6 @@ internal class DatagramSocketImpl(
     override val outgoing: SendChannel<Datagram>
         get() = sender
 
-    init {
-        makeShared()
-    }
-
     override fun close() {
         receiver.cancel()
         _context.complete()

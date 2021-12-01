@@ -77,7 +77,7 @@ public class TestApplicationRequest constructor(
 
     override val cookies: RequestCookies = RequestCookies(this)
 
-    private var headersMap: MutableMap<String, MutableList<String>>? by shared(sharedMap())
+    private var headersMap: MutableMap<String, MutableList<String>>? by shared(mutableMap())
 
     /**
      * Add HTTP request header

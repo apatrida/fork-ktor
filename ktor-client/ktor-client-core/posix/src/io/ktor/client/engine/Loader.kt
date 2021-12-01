@@ -4,8 +4,8 @@
 
 package io.ktor.client.engine
 
+import io.ktor.client.engine.engines.append
 import io.ktor.util.*
-import io.ktor.utils.io.*
 import kotlin.native.concurrent.*
 
 private typealias T = HttpClientEngineFactory<HttpClientEngineConfig>
@@ -49,9 +49,5 @@ public object engines : Iterable<T> {
     private class Node(
         val item: T,
         val next: Node?
-    ) {
-        init {
-            makeShared()
-        }
-    }
+    )
 }

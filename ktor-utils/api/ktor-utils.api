@@ -492,8 +492,8 @@ public final class io/ktor/util/cio/Semaphore {
 public final class io/ktor/util/collections/CollectionUtilsKt {
 	public static final fun sharedList ()Ljava/util/List;
 	public static final fun sharedListOf ([Ljava/lang/Object;)Ljava/util/List;
-	public static final fun sharedMap (I)Ljava/util/Map;
-	public static synthetic fun sharedMap$default (IILjava/lang/Object;)Ljava/util/Map;
+	public static final fun mutableMap (I)Ljava/util/Map;
+	public static synthetic fun mutableMap$default (IILjava/lang/Object;)Ljava/util/Map;
 }
 
 public class io/ktor/util/collections/ConcurrentCollection : java/util/Collection, kotlin/jvm/internal/markers/KMutableCollection {

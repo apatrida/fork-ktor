@@ -35,7 +35,7 @@ class ExceptionsJvmTest {
         val port = server.localPort
 
         GlobalScope.launch {
-            repeat(100) {
+            repeat(1000) {
                 val client = server.accept()
                 val input = client.inputStream.bufferedReader()
                 val output = client.outputStream.writer()
@@ -55,7 +55,8 @@ class ExceptionsJvmTest {
         }
 
         HttpClient(Apache).use { client ->
-            repeat(100) {
+            repeat(1000) {
+                println(it)
                 assertFailsWith<ConnectionClosedException> {
                     client.get("http://127.0.0.1:$port")
                 }

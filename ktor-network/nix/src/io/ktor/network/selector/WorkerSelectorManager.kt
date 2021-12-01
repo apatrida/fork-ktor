@@ -16,7 +16,6 @@ internal class WorkerSelectorManager : SelectorManager {
     private val selector = SelectorHelper()
 
     init {
-        makeShared()
         selector.start(this)
     }
 

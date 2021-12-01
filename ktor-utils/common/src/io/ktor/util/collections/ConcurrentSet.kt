@@ -14,10 +14,6 @@ public class ConcurrentSet<Key : Any> constructor(
     private val lock: Lock = Lock(),
     private val delegate: ConcurrentMap<Key, Unit> = ConcurrentMap(lock)
 ) : MutableSet<Key> {
-    init {
-        makeShared()
-    }
-
     override fun add(element: Key): Boolean = lock.withLock {
         val result = !delegate.contains(element)
         delegate[element] = Unit
