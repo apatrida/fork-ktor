@@ -66,7 +66,7 @@ public fun TestApplication(
  * Registers mocks for external services.
  */
 public class ExternalServicesBuilder {
-    internal val externalApplications = mutableMap<String, TestApplication>()
+    internal val externalApplications = mutableMapOf<String, TestApplication>()
 
     /**
      * Registers a mock for external service specified by [hosts] and configured with [block].

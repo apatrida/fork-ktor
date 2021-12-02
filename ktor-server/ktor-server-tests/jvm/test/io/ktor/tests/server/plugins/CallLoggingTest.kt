@@ -238,7 +238,7 @@ class CallLoggingTest {
         }
 
         withApplication(environment) {
-            @OptIn(ObsoleteCoroutinesApi::class)
+            @OptIn(DelicateCoroutinesApi::class)
             newFixedThreadPoolContext(1, "test-dispatcher").use { dispatcher ->
                 application.routing {
                     get("/*") {

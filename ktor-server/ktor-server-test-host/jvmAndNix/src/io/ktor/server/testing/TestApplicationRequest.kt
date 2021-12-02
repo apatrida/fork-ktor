@@ -7,12 +7,10 @@ package io.ktor.server.testing
 import io.ktor.http.*
 import io.ktor.server.engine.*
 import io.ktor.server.request.*
-import io.ktor.util.collections.*
 import io.ktor.utils.io.*
 import io.ktor.utils.io.concurrent.*
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
-import kotlin.jvm.*
 
 /**
  * Represents a test application request
@@ -23,7 +21,6 @@ import kotlin.jvm.*
  * @property port (Optional) HTTP port to send request to
  * @property protocol HTTP protocol to be used or was used
  */
-@Suppress("DEPRECATION")
 public class TestApplicationRequest constructor(
     call: TestApplicationCall,
     closeRequest: Boolean,
@@ -77,14 +74,14 @@ public class TestApplicationRequest constructor(
 
     override val cookies: RequestCookies = RequestCookies(this)
 
-    private var headersMap: MutableMap<String, MutableList<String>>? by shared(mutableMap())
+    private var headersMap: MutableMap<String, MutableList<String>>? = mutableMapOf()
 
     /**
      * Add HTTP request header
      */
     public fun addHeader(name: String, value: String) {
         val map = headersMap ?: throw Exception("Headers were already acquired for this request")
-        map.getOrPut(name) { sharedListOf() }.add(value)
+        map.getOrPut(name) { mutableListOf() }.add(value)
     }
 
     override val headers: Headers by sharedLazy {
