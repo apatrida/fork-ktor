@@ -164,7 +164,7 @@ public class HttpRequestRetry internal constructor(configuration: Configuration)
                 val delay = minOf(base.pow(retry).toLong() * 1000L, maxDelayMs)
                 delay + randomMs(randomizationMs)
             }
-        }
+        } // test
 
         /**
          * A function that waits for the specified amount of milliseconds. Uses [kotlinx.coroutines.delay] by default.
